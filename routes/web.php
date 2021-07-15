@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+Verb	        URI	                    Action	    Route Name
+GET	            /photos	                index	    photos.index
+GET	            /photos/create	        create	    photos.create
+POST	        /photos	                store	    photos.store
+GET	            /photos/{photo}	        show	    photos.show
+GET	            /photos/{photo}/edit	edit	    photos.edit
+PUT/PATCH	    /photos/{photo}	        update	    photos.update
+*/
+
+Route::get('/', [TaskController::class, 'index']);
+Route::get('/tasks/create', [TaskController::class, 'create']);
