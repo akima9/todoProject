@@ -8,14 +8,14 @@
     <title>TO-DO App</title>
 </head>
 <body>
-    <div id="header" class="container mx-auto">
+    <div id="header" class="container mx-auto my-10">
         @section('header')
             <ul class="flex">
                 <li class="flex-auto mr-2">
-                    <a href="/" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">LIST</a>
+                    <a href="/" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">목록</a>
                 </li>
                 <li class="flex-auto">
-                    <a href="/tasks/create" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">ADD</a>
+                    <a href="/tasks/create" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">추가</a>
                 </li>
             </ul>
         @show

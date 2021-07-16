@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        return view('tasks/list');
+        $task = new Task;
+        $tasks = $task->all();
+
+        /* echo "<pre>";
+        var_dump($tasks);
+        echo "</pre>"; */
+
+        return view('tasks/list', ['tasks' => $tasks]);
     }
 
     public function create()
@@ -18,8 +27,27 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        $title = $request->input('title');
-        $contents = $request->input('contents');
+        $messages = [
+            'title.required' => '제목을 입력해주세요.',
+            'title.max' => '제목은 50자 이하로 입력해주세요.',
+            'contents.required' => '내용을 입력해주세요.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:50',
+            'contents' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect('tasks/create')
+                    ->withErrors($validator)
+                    ->withInput();
+        }//end if
+
+        $task = new Task;
+        $task->title = $validator['title'];
+        $task->contents = $validator['contents'];
+        $task->save();
     }
 
     public function show()
