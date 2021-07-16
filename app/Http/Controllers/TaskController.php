@@ -16,9 +16,10 @@ class TaskController extends Controller
         return view('tasks/create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-
+        $title = $request->input('title');
+        $contents = $request->input('contents');
     }
 
     public function show()
