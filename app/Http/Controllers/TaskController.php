@@ -42,17 +42,20 @@ class TaskController extends Controller
             return redirect('tasks/create')
                     ->withErrors($validator)
                     ->withInput();
+        } else {
+            $task = new Task;
+            $task->title = $request->input('title');
+            $task->contents = $request->input('contents');
+            $task->save();
+
+            return redirect('/');
         }//end if
 
-        $task = new Task;
-        $task->title = $validator['title'];
-        $task->contents = $validator['contents'];
-        $task->save();
     }
 
     public function show()
     {
-
+        echo "show";
     }
 
     public function edit()

@@ -27,3 +27,4 @@ PUT/PATCH	    /photos/{photo}	        update	    photos.update
 Route::get('/', [TaskController::class, 'index']);
 Route::get('/tasks/create', [TaskController::class, 'create']);
 Route::post('/tasks', [TaskController::class, 'store']);
+Route::get('/tasks/{id}', [TaskController::class, 'show']);
