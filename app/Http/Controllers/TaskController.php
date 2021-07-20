@@ -8,10 +8,22 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
+    private $task;
+    private $messages;
+
+    public function __construct()
+    {
+        $this->task = new Task;
+        $this->messages = [
+            'title.required' => '제목을 입력해주세요.',
+            'title.max' => '제목은 50자 이하로 입력해주세요.',
+            'contents.required' => '내용을 입력해주세요.',
+        ];
+    }
+
     public function index()
     {
-        $task = new Task;
-        $tasks = $task->all();
+        $tasks = $this->task->all();
 
         return view('tasks/list', ['tasks' => $tasks]);
     }
@@ -23,26 +35,19 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        $messages = [
-            'title.required' => '제목을 입력해주세요.',
-            'title.max' => '제목은 50자 이하로 입력해주세요.',
-            'contents.required' => '내용을 입력해주세요.',
-        ];
-
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:50',
             'contents' => 'required',
-        ], $messages);
+        ], $this->messages);
 
         if ($validator->fails()) {
             return redirect('tasks/create')
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $task = new Task;
-            $task->title = $request->input('title');
-            $task->contents = $request->input('contents');
-            $task->save();
+            $this->task->title = $request->input('title');
+            $this->task->contents = $request->input('contents');
+            $this->task->save();
 
             return redirect('/');
         }//end if
@@ -50,40 +55,31 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = new Task;
-        $data = $task->where('id', $id)->first();
+        $data = $this->task->where('id', $id)->first();
 
         return view('tasks/show', ['task' => $data]);
     }
 
     public function edit($id)
     {
-        $task = new Task;
-        $data = $task->where('id', $id)->first();
+        $data = $this->task->where('id', $id)->first();
 
         return view('tasks/edit', ['task' => $data]);
     }
 
     public function update(Request $request, $id)
     {
-        $messages = [
-            'title.required' => '제목을 입력해주세요.',
-            'title.max' => '제목은 50자 이하로 입력해주세요.',
-            'contents.required' => '내용을 입력해주세요.',
-        ];
-
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:50',
             'contents' => 'required',
-        ], $messages);
+        ], $this->messages);
 
         if ($validator->fails()) {
             return redirect('tasks/' . $id . '/edit')
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $task = new Task;
-            $task->where('id', $id)
+            $this->task->where('id', $id)
                 ->update([
                     'title' => $request->input('title'),
                     'contents' => $request->input('contents')]
@@ -91,6 +87,12 @@ class TaskController extends Controller
 
             return redirect('tasks/'.$id);
         }//end if
+    }
+
+    public function delete($id)
+    {
+        $this->task->where('id', $id)->delete();
+        return redirect('/');
     }
 
 }
