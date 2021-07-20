@@ -13,10 +13,6 @@ class TaskController extends Controller
         $task = new Task;
         $tasks = $task->all();
 
-        /* echo "<pre>";
-        var_dump($tasks);
-        echo "</pre>"; */
-
         return view('tasks/list', ['tasks' => $tasks]);
     }
 
@@ -50,22 +46,51 @@ class TaskController extends Controller
 
             return redirect('/');
         }//end if
-
     }
 
-    public function show()
+    public function show($id)
     {
-        echo "show";
+        $task = new Task;
+        $data = $task->where('id', $id)->first();
+
+        return view('tasks/show', ['task' => $data]);
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $task = new Task;
+        $data = $task->where('id', $id)->first();
 
+        return view('tasks/edit', ['task' => $data]);
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
+        $messages = [
+            'title.required' => '제목을 입력해주세요.',
+            'title.max' => '제목은 50자 이하로 입력해주세요.',
+            'contents.required' => '내용을 입력해주세요.',
+        ];
 
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:50',
+            'contents' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect('tasks/' . $id . '/edit')
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $task = new Task;
+            $task->where('id', $id)
+                ->update([
+                    'title' => $request->input('title'),
+                    'contents' => $request->input('contents')]
+                );
+
+            return redirect('tasks/'.$id);
+        }//end if
     }
 
 }
