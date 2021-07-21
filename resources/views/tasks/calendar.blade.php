@@ -16,14 +16,16 @@
 @endsection
 
 <script>
-    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', '{{route('task.list')}}', true);
-                    xhr.send();
-                    xhr.onload = function() {
-                        if(xhr.status == 200) {
-                            successCallback(xhr.responseText);
-                        }
-                    }
+    function getTasks(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '{{route('task.list')}}', true);
+        xhr.send();
+        xhr.onload = function() {
+            if(xhr.status == 200) {
+                return xhr.responseText;
+            }
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -33,9 +35,7 @@
             selectable: true,
             editable: true,
             eventSources: [{
-                events: function(info, successCallback, failureCallback) {
-
-                }
+                events: getTasks()
             }]
             // [
             //     {
