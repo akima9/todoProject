@@ -28,6 +28,12 @@ class TaskController extends Controller
         return view('tasks/list', ['tasks' => $tasks]);
     }
 
+    public function list()
+    {
+        $tasks = $this->task->select('title', 'start', 'end')->get();
+        return response()->json($tasks);
+    }
+
     public function create()
     {
         return view('tasks/create');
@@ -38,6 +44,8 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:50',
             'contents' => 'required',
+            'start' => 'required',
+            'end' => 'required',
         ], $this->messages);
 
         if ($validator->fails()) {
@@ -47,6 +55,8 @@ class TaskController extends Controller
         } else {
             $this->task->title = $request->input('title');
             $this->task->contents = $request->input('contents');
+            $this->task->start = $request->input('start');
+            $this->task->end = $request->input('end');
             $this->task->save();
 
             return redirect('/');
@@ -93,6 +103,13 @@ class TaskController extends Controller
     {
         $this->task->where('id', $id)->delete();
         return redirect('/');
+    }
+
+    public function calendar()
+    {
+        $tasks = $this->task->all();
+
+        return view('tasks/calendar', ['tasks' => $tasks]);
     }
 
 }

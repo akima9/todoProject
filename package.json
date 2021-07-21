@@ -16,5 +16,8 @@
         "lodash": "^4.17.19",
         "postcss": "^8.3.5",
         "tailwindcss": "^2.2.4"
+    },
+    "dependencies": {
+        "fullcalendar": "^5.8.0"
     }
 }

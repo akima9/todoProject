@@ -24,10 +24,11 @@ GET	            /photos/{photo}/edit	edit	    photos.edit
 PUT/PATCH	    /photos/{photo}	        update	    photos.update
 */
 
-Route::get('/', [TaskController::class, 'index']);
-Route::get('/tasks/create', [TaskController::class, 'create']);
-Route::post('/tasks', [TaskController::class, 'store']);
-Route::get('/tasks/{id}', [TaskController::class, 'show']);
-Route::get('/tasks/{id}/edit', [TaskController::class, 'edit']);
-Route::put('/tasks/{id}', [TaskController::class, 'update']);
+Route::get('/', [TaskController::class, 'index'])->name('task.index');
+Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('task.create');
+Route::post('/tasks', [TaskController::class, 'store'])->name('task.store');
+Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
+Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
+Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
 Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');
