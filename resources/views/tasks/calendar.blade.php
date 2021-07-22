@@ -12,27 +12,18 @@
             initialView: 'dayGridMonth',
             selectable: true,
             editable: true,
-            events: function(info, successCallback, failureCallback){
-                var tasks = [];
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', '{{route('task.list')}}', true);
-                xhr.responseType='json';
-                xhr.send();
-                xhr.onload = function() {
-                    if(xhr.status == 200) {
-                        xhr.response.forEach(element => {
-                            tasks.push(element);
-                        });
+            eventSources: [
+                {
+                    url: '{{route('task.list')}}',
+                    method: 'GET',
+                    success: function(data) {
+                        return data.eventArray;
+                    },
+                    failure: function(data){
+                        console.log(data);
                     }
                 }
-            }
-            // [
-            //     {
-            //         title: 'test',
-            //         start: '2021-07-01',
-            //         end: '2021-07-03'
-            //     }
-            // ]
+            ]
         });
         calendar.render();
     });
