@@ -5,19 +5,6 @@
 @endsection
 
 <script>
-    var tasks = [];
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{route('task.list')}}', true);
-    xhr.responseType='json';
-    xhr.send();
-    xhr.onload = function() {
-        if(xhr.status == 200) {
-            xhr.response.forEach(element => {
-                tasks.push(element);
-            });
-        }
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -25,10 +12,19 @@
             initialView: 'dayGridMonth',
             selectable: true,
             editable: true,
-            events: function(){
-                tasks.forEach(element => {
-                    return element;
-                });
+            events: function(info, successCallback, failureCallback){
+                var tasks = [];
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '{{route('task.list')}}', true);
+                xhr.responseType='json';
+                xhr.send();
+                xhr.onload = function() {
+                    if(xhr.status == 200) {
+                        xhr.response.forEach(element => {
+                            tasks.push(element);
+                        });
+                    }
+                }
             }
             // [
             //     {
