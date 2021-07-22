@@ -23,7 +23,10 @@
                         console.log(data);
                     }
                 }
-            ]
+            ],
+            eventClick: function(info) {
+                location.href = '/tasks/' + info.event.id;
+            },
         });
         calendar.render();
     });

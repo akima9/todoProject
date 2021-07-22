@@ -30,7 +30,7 @@ class TaskController extends Controller
 
     public function list()
     {
-        $tasks = $this->task->select('title', 'start', 'end')->get();
+        $tasks = $this->task->select('id', 'title', 'start', 'end')->get();
         return response()->json($tasks);
     }
 
