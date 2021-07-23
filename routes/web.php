@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskGroupController;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,14 @@ Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
 Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
 Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
 Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');
+
+
+Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');
+Route::get('/taskGroups/create', [TaskGroupController::class, 'create'])->name('taskGroup.create');
+Route::post('/taskGroups', [TaskGroupController::class, 'store'])->name('taskGroup.store');
+
+// Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
+// Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
+// Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
+// Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
+// Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');

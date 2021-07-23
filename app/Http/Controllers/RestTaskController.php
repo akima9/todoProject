@@ -29,31 +29,6 @@ class RestTaskController extends Controller
                 );
 
         return response()->json($data);
-
-        /* $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
-            'contents' => 'required',
-        ], $this->messages);
-
-        if ($validator->fails()) {
-            return redirect('tasks/' . $id . '/edit')
-                    ->withErrors($validator)
-                    ->withInput();
-        } else {
-            $this->task->where('id', $id)
-                ->update([
-                    'title' => $request->input('title'),
-                    'contents' => $request->input('contents')]
-                );
-
-            return redirect('tasks/'.$id);
-        }//end if */
     }
 
-    /* public function edit($id)
-    {
-        $data = $this->task->where('id', $id)->first();
-
-        return view('tasks/edit', ['task' => $data]);
-    } */
 }
