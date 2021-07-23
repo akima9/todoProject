@@ -28,12 +28,6 @@ class TaskController extends Controller
         return view('tasks/list', ['tasks' => $tasks]);
     }
 
-    public function list()
-    {
-        $tasks = $this->task->select('id', 'title', 'start', 'end')->get();
-        return response()->json($tasks);
-    }
-
     public function create()
     {
         return view('tasks/create');
