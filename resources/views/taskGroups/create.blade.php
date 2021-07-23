@@ -25,7 +25,7 @@
                 <label for="bgColor" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     배경색
                 </label>
-                <input type="text" name="bgColor" id="bgColor" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <input type="color" name="bgColor" id="bgColor" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" style="height: 100px;">
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -33,7 +33,7 @@
                 <label for="fontColor" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     글자색
                 </label>
-                <input type="text" name="fontColor" id="fontColor" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <input type="color" name="fontColor" id="fontColor" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" style="height: 100px;">
             </div>
         </div>
         <div class="text-center">
@@ -43,3 +43,10 @@
         </div>
     </form>
 @endsection
+
+<script>
+    /* $(function() {
+        $('#colorpicker-popup').colorpicker();
+    }); */
+    // document.querySelector('#bgColor').colorpicker();
+</script>
