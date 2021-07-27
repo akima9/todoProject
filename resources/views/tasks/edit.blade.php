@@ -15,6 +15,28 @@
         @method('PUT')
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
+                <label for="taskGroup" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    그룹
+                </label>
+                <select name="taskGroup" id="taskGroup" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    @if (count($listTaskGroups) > 0)
+                        @foreach ($listTaskGroups as $listTaskGroup)
+                            <option
+                                value="{{ $listTaskGroup['id'] }}"
+                                @if ($listTaskGroup['id'] === $getTaskGroup['id'])
+                                    selected
+                                @endif
+                                >{{ $listTaskGroup['groupName'] }}</option>
+                        @endforeach
+                    @else
+                        <option value="emptyGroup">일반</option>
+                    @endif
+
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
                 <label for="title" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     제목
                 </label>

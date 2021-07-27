@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 
 class RestTaskController extends Controller
 {
@@ -16,7 +17,10 @@ class RestTaskController extends Controller
 
     public function list()
     {
-        $tasks = $this->task->select('id', 'title', 'start', 'end')->get();
+        $tasks = DB::table('tasks')
+            ->leftjoin('taskgroup', 'tasks.group', '=', 'taskgroup.id')
+            ->select('tasks.id', 'tasks.title', 'tasks.start', 'tasks.end', 'taskgroup.bgColor as color', 'taskgroup.fontColor as textColor')
+            ->get();
         return response()->json($tasks);
     }
 

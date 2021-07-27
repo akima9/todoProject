@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Task;
+use App\Models\TaskGroup;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
     private $task;
+    private $taskGroup;
     private $messages;
 
     public function __construct()
     {
         $this->task = new Task;
+        $this->taskGroup = new TaskGroup;
         $this->messages = [
             'title.required' => '제목을 입력해주세요.',
             'title.max' => '제목은 50자 이하로 입력해주세요.',
@@ -30,7 +34,8 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks/create');
+        $data = $this->taskGroup->all();
+        return view('tasks/create', ['taskGroups' => $data]);
     }
 
     public function store(Request $request)
@@ -47,6 +52,7 @@ class TaskController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
+            $this->task->group = $request->input('taskGroup');
             $this->task->title = $request->input('title');
             $this->task->contents = $request->input('contents');
             $this->task->start = $request->input('start');
@@ -59,16 +65,19 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $data = $this->task->where('id', $id)->first();
+        $task = $this->task->where('id', $id)->first();
+        $taskGroup = $this->taskGroup->where('id', $task->group)->first();
 
-        return view('tasks/show', ['task' => $data]);
+        return view('tasks/show', ['task' => $task, 'taskGroup' => $taskGroup]);
     }
 
     public function edit($id)
     {
-        $data = $this->task->where('id', $id)->first();
+        $task = $this->task->where('id', $id)->first();
+        $getTaskGroup = $this->taskGroup->where('id', $task->group)->first();
+        $listTaskGroup = $this->taskGroup->all();
 
-        return view('tasks/edit', ['task' => $data]);
+        return view('tasks/edit', ['task' => $task, 'getTaskGroup' => $getTaskGroup, 'listTaskGroups' => $listTaskGroup]);
     }
 
     public function update(Request $request, $id)
@@ -85,6 +94,7 @@ class TaskController extends Controller
         } else {
             $this->task->where('id', $id)
                 ->update([
+                    'group' => $request->input('taskGroup'),
                     'title' => $request->input('title'),
                     'contents' => $request->input('contents')]
                 );

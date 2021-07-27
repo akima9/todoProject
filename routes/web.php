@@ -38,9 +38,11 @@ Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.
 Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');
 Route::get('/taskGroups/create', [TaskGroupController::class, 'create'])->name('taskGroup.create');
 Route::post('/taskGroups', [TaskGroupController::class, 'store'])->name('taskGroup.store');
+Route::get('/taskGroups/{id}', [TaskGroupController::class, 'show'])->name('taskGroup.show');
+Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
+Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
+Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 
 // Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
-// Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
-// Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
-// Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
-// Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');
+
+

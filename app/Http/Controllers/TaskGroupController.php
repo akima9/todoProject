@@ -53,49 +53,52 @@ class TaskGroupController extends Controller
             return redirect('/taskGroups');
         }//end if
     }
-/*
+
     public function show($id)
     {
-        $data = $this->task->where('id', $id)->first();
+        $data = $this->taskGroup->where('id', $id)->first();
 
-        return view('tasks/show', ['task' => $data]);
+        return view('taskGroups/show', ['taskGroup' => $data]);
     }
 
     public function edit($id)
     {
-        $data = $this->task->where('id', $id)->first();
+        $data = $this->taskGroup->where('id', $id)->first();
 
-        return view('tasks/edit', ['task' => $data]);
+        return view('taskGroups/edit', ['taskGroup' => $data]);
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
-            'contents' => 'required',
+            'groupName' => 'required|max:50',
+            'bgColor' => 'required',
+            'fontColor' => 'required',
         ], $this->messages);
 
         if ($validator->fails()) {
-            return redirect('tasks/' . $id . '/edit')
+            return redirect('taskGroups/' . $id . '/edit')
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $this->task->where('id', $id)
+
+            $this->taskGroup->where('id', $id)
                 ->update([
-                    'title' => $request->input('title'),
-                    'contents' => $request->input('contents')]
+                    'groupName' => $request->input('groupName'),
+                    'bgColor' => $request->input('bgColor'),
+                    'fontColor' => $request->input('fontColor')]
                 );
 
-            return redirect('tasks/'.$id);
+            return redirect('taskGroups/'.$id);
         }//end if
     }
 
     public function delete($id)
     {
-        $this->task->where('id', $id)->delete();
-        return redirect('/');
+        $this->taskGroup->where('id', $id)->delete();
+        return redirect('/taskGroups');
     }
-
+/*
     public function calendar()
     {
         $tasks = $this->task->all();

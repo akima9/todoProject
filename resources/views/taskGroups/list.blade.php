@@ -3,7 +3,7 @@
 @section('container')
     @foreach ($taskGroups as $taskGroup)
         <div class="block border border-blue-500 rounded py-2 px-4 hover:bg-blue-100 my-5">
-            <a href="{{ route('task.show', ['id' => $taskGroup['id']]) }}">
+            <a href="{{ route('taskGroup.show', ['id' => $taskGroup['id']]) }}">
                 <div>
                     <span class="font-extrabold text-2xl">{{ $taskGroup['groupName'] }}</span>
                 </div>

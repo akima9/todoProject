@@ -50,6 +50,7 @@
                     url: '{{route('restTask.list')}}',
                     method: 'GET',
                     success: function(data) {
+                        console.log(data);
                         return data.eventArray;
                     },
                     failure: function(data){
