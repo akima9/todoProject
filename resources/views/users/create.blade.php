@@ -17,7 +17,7 @@
                 <label for="userId" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     아이디
                 </label>
-                <input type="text" name="userId" id="userId" onkeypress="checkUserId(this)" onkeyup="checkUserId(this)" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <input type="text" name="userId" id="userId" onkeyup="checkUserId(this)" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -46,20 +46,14 @@
 
 <script>
     function checkUserId(box){
-        var val = box.value;
-        var regex = /^[a-z|A-Z|0-9]+$/gi;
-        // console.log(box.value);
-        // const regex = /^[a-z|A-Z|0-9|]+$/;
-        // if (!regex.test(val)) {
-        //     console.log(val.replace('/[^0-9]/gi', ''));
-        // }
-        console.log(regex);
-        // box.value =
-        var test = val.replace('/^[0-9]/g', '1');
-        console.log(test);
+        onlyAlphaAndNum(box);
+    }
 
-        // val=obj.value;
-        // re=/[^0-9]/gi;
-        // obj.value=val.replace(re,"");
+    // 알파벳 및 숫자만 허용
+    function onlyAlphaAndNum(box){
+        var val = box.value;
+        var regex = /[^0-9|a-z|A-Z]/g;
+        var result = val.replace(regex, '');
+        box.value = result;
     }
 </script>
