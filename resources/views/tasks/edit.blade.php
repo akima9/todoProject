@@ -19,12 +19,15 @@
                     그룹
                 </label>
                 <select name="taskGroup" id="taskGroup" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    @if (count($listTaskGroups) > 0)
+                    @if (!empty($listTaskGroups))
+                        <option value="emptyGroup">일반</option>
                         @foreach ($listTaskGroups as $listTaskGroup)
                             <option
                                 value="{{ $listTaskGroup['id'] }}"
-                                @if ($listTaskGroup['id'] === $getTaskGroup['id'])
-                                    selected
+                                @if (!empty($getTaskGroup))
+                                    @if ($listTaskGroup['id'] === $getTaskGroup['id'])
+                                        selected
+                                    @endif
                                 @endif
                                 >{{ $listTaskGroup['groupName'] }}</option>
                         @endforeach
