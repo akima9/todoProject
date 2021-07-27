@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <form action="{{ route('user.store') }}" method="POST" class="w-full my-10">
+    <form action="{{ route('user.store') }}" method="POST" class="w-full my-10" onsubmit="return checkForm()">
         @csrf
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
@@ -55,5 +55,38 @@
         var regex = /[^0-9|a-z|A-Z]/g;
         var result = val.replace(regex, '');
         box.value = result;
+    }
+
+    function checkForm(){
+        var userId = document.querySelector('#userId');
+        var userPw = document.querySelector('#userPw');
+        var reUserPw = document.querySelector('#reUserPw');
+
+        if (!userId.value) {
+            alert('아이디를 입력해주세요.');
+            userId.focus();
+            return false;
+        }//end if
+
+        if (!userPw.value) {
+            alert('비밀번호를 입력해주세요.');
+            userPw.focus();
+            return false;
+        }//end if
+
+        if (!reUserPw.value) {
+            alert('비밀번호를 확인해주세요.');
+            reUserPw.focus();
+            return false;
+        }//end if
+
+        if (userPw.value !== reUserPw.value) {
+            alert('비밀번호를 동일하게 입력해주세요.');
+            reUserPw.focus();
+            return false;
+        }
+
+        return true;
+
     }
 </script>
