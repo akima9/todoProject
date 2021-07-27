@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGroupController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,13 @@ Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name(
 Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
 Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 
-// Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
 
+Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/users', [UserController::class, 'store'])->name('user.store');
+
+// Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');
+// Route::get('/taskGroups/{id}', [TaskGroupController::class, 'show'])->name('taskGroup.show');
+// Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
+// Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
+// Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 

@@ -3,38 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
-use App\Models\TaskGroup;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
-class TaskController extends Controller
+class UserController extends Controller
 {
-    private $task;
-    private $taskGroup;
+    private $user;
     private $messages;
 
     public function __construct()
     {
-        $this->task = new Task;
-        $this->taskGroup = new TaskGroup;
+        $this->user = new User;
         $this->messages = [
-            'title.required' => '제목을 입력해주세요.',
-            'title.max' => '제목은 50자 이하로 입력해주세요.',
-            'contents.required' => '내용을 입력해주세요.',
+            'userId.required' => '제목을 입력해주세요.',
+            'userId.max' => '제목은 10자 이하로 입력해주세요.',
+            'userPw.required' => '비밀번호를 입력해주세요.',
         ];
     }
 
-    public function index()
+    /* public function index()
     {
         $tasks = $this->task->orderBy('start', 'asc')->get();
 
         return view('tasks/list', ['tasks' => $tasks]);
-    }
+    } */
 
     public function create()
     {
-        $data = $this->taskGroup->all();
-        return view('tasks/create', ['taskGroups' => $data]);
+        return view('users/create');
     }
 
     public function store(Request $request)
@@ -61,7 +57,7 @@ class TaskController extends Controller
             return redirect('/');
         }//end if
     }
-
+/*
     public function show($id)
     {
         $task = $this->task->where('id', $id)->first();
@@ -113,15 +109,5 @@ class TaskController extends Controller
         $tasks = $this->task->all();
 
         return view('tasks/calendar', ['tasks' => $tasks]);
-    }
-
+    } */
 }
-/*
-Verb	        URI	                    Action	    Route Name
-GET	            /photos	                index	    photos.index
-GET	            /photos/create	        create	    photos.create
-POST	        /photos	                store	    photos.store
-GET	            /photos/{photo}	        show	    photos.show
-GET	            /photos/{photo}/edit	edit	    photos.edit
-PUT/PATCH	    /photos/{photo}	        update	    photos.update
-*/
