@@ -89,7 +89,8 @@ class TaskGroupController extends Controller
                     'fontColor' => $request->input('fontColor')]
                 );
 
-            return redirect('taskGroups/'.$id);
+            // return redirect('taskGroups/'.$id);
+            return redirect('/taskGroups');
         }//end if
     }
 
