@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <form action="{{ route('task.store') }}" method="POST" class="w-full my-10">
+    <form action="{{ route('task.store') }}" method="POST" class="w-full my-10" onsubmit="return checkForm()">
         @csrf
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
@@ -68,3 +68,19 @@
         </div>
     </form>
 @endsection
+
+<script>
+    function checkForm(){
+        var start = document.querySelector('#start');
+        var end = document.querySelector('#end');
+        console.log(start.value);
+        console.log(end.value);
+
+        if (start.value >= end.value) {
+            alert("시작일이 종료일 보다 늦거나 같습니다.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
