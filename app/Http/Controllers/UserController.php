@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,23 +37,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
-            'contents' => 'required',
-            'start' => 'required',
-            'end' => 'required',
+            'userId' => 'required|max:20',
+            'userPw' => 'required',
         ], $this->messages);
 
         if ($validator->fails()) {
-            return redirect('tasks/create')
+            return redirect('users/create')
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $this->task->group = $request->input('taskGroup');
-            $this->task->title = $request->input('title');
-            $this->task->contents = $request->input('contents');
-            $this->task->start = $request->input('start');
-            $this->task->end = $request->input('end');
-            $this->task->save();
+            $this->user->userId = $request->input('userId');
+            $this->user->userPw = Hash::make($request->input('userPw'));
+            $this->user->save();
 
             return redirect('/');
         }//end if
