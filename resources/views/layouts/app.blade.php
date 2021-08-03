@@ -43,7 +43,7 @@
 
     <div id="footer" class="container mx-auto">
         @section('footer')
-            This is the master footer.
+            This is the master footer..
         @show
     </div>
 </body>

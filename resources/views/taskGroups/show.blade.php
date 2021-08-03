@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="{{ route('taskGroup.edit', ['id' => $taskGroup['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                수정
+            <a href="{{ route('taskGroup.edit', ['id' => $taskGroup['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
+                수정하기
             </a>
             <a href="{{ route('taskGroup.delete', ['id' => $taskGroup['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                 삭제
