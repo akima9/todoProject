@@ -74,8 +74,6 @@
     function checkForm(){
         var start = document.querySelector('#start');
         var end = document.querySelector('#end');
-        console.log(start.value);
-        console.log(end.value);
 
         if (start.value >= end.value) {
             alert("시작일이 종료일 보다 늦거나 같습니다.");
