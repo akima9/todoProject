@@ -28,8 +28,14 @@
                 <li class="flex-auto mr-2">
                     <a href="{{ route('taskGroup.create') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">그룹추가</a>
                 </li>
-                <li class="flex-auto">
+                <li class="flex-auto mr-2">
                     <a href="{{ route('user.create') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">회원가입</a>
+                </li>
+                <li class="flex-auto mr-2">
+                    <a href="{{ route('user.loginView') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">로그인</a>
+                </li>
+                <li class="flex-auto">
+                    <a href="{{ route('user.logout') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">로그아웃</a>
                 </li>
             </ul>
         @show

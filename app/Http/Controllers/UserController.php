@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -52,6 +53,57 @@ class UserController extends Controller
 
             return redirect('/');
         }//end if
+    }
+
+    public function loginView()
+    {
+        return view('users/login');
+    }
+
+    public function login(Request $request)
+    {
+        // $userId = $request->input('userId');
+        // $user = $this->user->where('userId', $userId)->first();
+
+        $credentials = $request->only('userId', 'userPw');
+
+        echo "<pre>";
+        var_dump($credentials);
+        var_dump(Auth::attempt($credentials));
+        echo "</pre>";
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            echo "test";
+            // return redirect()->intended('/');
+        }
+/*
+        if (!empty($user)) {
+            // var_dump(Hash::check($request->input('userPw'), $user->userPw));
+            // var_dump($request->input('userPw'));
+            // var_dump($user->userPw);
+            if (Hash::check($request->input('userPw'), $user->userPw)) {
+                // 비밀번호 일치
+            } else {
+                // 비밀번호 불일치
+            }
+        } else {
+            // 아이디 없음
+        }
+
+
+        // $userPw = Hash::check($request->input('userPw'));
+
+        // echo $userPw;
+
+        // return redirect('/');
+*/
+    }
+
+    public function logout()
+    {
+        // return view('users/create');
+        echo "logout";
     }
 /*
     public function show($id)
