@@ -66,6 +66,28 @@
             alert('아이디를 입력해주세요.');
             userId.focus();
             return false;
+        } else {
+            let returnFlag = true;
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", '/api/users/userIdDupeChk/' + userId.value, false);
+            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            xhr.onload = function () {
+                if (xhr.readyState == 4 && xhr.status == "200") {
+                    var data = JSON.parse(xhr.responseText);
+                    if(data.msg === 'dupe'){
+                        alert('이미 사용중인 아이디입니다.');
+                        userId.focus();
+                        returnFlag = false;
+                        return false;
+                    }
+                } else {
+                    alert("오류");
+                }
+            }
+            xhr.send();
+            if (!returnFlag) {
+                return false;
+            }
         }//end if
 
         if (!userPw.value) {

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestTaskController;
+use App\Http\Controllers\RestUserController;
 use App\Models\Task;
 
 /*
@@ -22,3 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/tasks/list', [RestTaskController::class, 'list'])->name('restTask.list');
 Route::put('/tasks/{id}', [RestTaskController::class, 'update'])->name('restTask.update');
+
+Route::get('/users/userIdDupeChk/{id}', [RestUserController::class, 'userIdDupeChk'])->name('restUser.userIdDupeChk');
