@@ -5,6 +5,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGroupController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,3 +59,7 @@ Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logou
 // Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
 // Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

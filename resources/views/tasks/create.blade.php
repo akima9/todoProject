@@ -1,73 +1,88 @@
 @extends('layouts.app')
 
-@section('container')
-    @if ($errors->any())
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-10" role="alert">
-            <p class="font-bold">경고</p>
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
+@section('content')
+    <div class="container">
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-10" role="alert">
+                <p class="font-bold">경고</p>
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
 
-    <form action="{{ route('task.store') }}" method="POST" class="w-full my-10" onsubmit="return checkForm()">
-        @csrf
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="taskGroup" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    그룹
-                </label>
-                <select name="taskGroup" id="taskGroup" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    @if (count($taskGroups) > 0)
-                        <option value="emptyGroup">일반</option>
-                        @foreach ($taskGroups as $taskGroup)
-                            <option value="{{ $taskGroup['id'] }}">{{ $taskGroup['groupName'] }}</option>
-                        @endforeach
-                    @else
-                        <option value="emptyGroup">일반</option>
-                    @endif
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">할일 추가</div>
 
-                </select>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('task.store') }}" onsubmit="return checkForm()">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="taskGroup" class="col-md-4 col-form-label text-md-right">그룹</label>
+
+                                <div class="col-md-6">
+                                    <select name="taskGroup" id="taskGroup" class="form-control">
+                                        @if (count($taskGroups) > 0)
+                                            <option value="emptyGroup">일반</option>
+                                            @foreach ($taskGroups as $taskGroup)
+                                                <option value="{{ $taskGroup['id'] }}">{{ $taskGroup['groupName'] }}</option>
+                                            @endforeach
+                                        @else
+                                            <option value="emptyGroup">일반</option>
+                                        @endif
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="title" class="col-md-4 col-form-label text-md-right">제목</label>
+
+                                <div class="col-md-6">
+                                    <input id="title" type="text" class="form-control" name="title" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="contents" class="col-md-4 col-form-label text-md-right">내용</label>
+
+                                <div class="col-md-6">
+                                    <textarea name="contents" id="contents" class="form-control" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="start" class="col-md-4 col-form-label text-md-right">시작일</label>
+
+                                <div class="col-md-6">
+                                    <input id="start" type="date" class="form-control" name="start" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="end" class="col-md-4 col-form-label text-md-right">종료일</label>
+
+                                <div class="col-md-6">
+                                    <input id="end" type="date" class="form-control" name="end" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        등록
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="title" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    제목
-                </label>
-                <input type="text" name="title" id="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="contents" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    내용
-                </label>
-                <textarea name="contents" id="contents" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="start" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    시작일
-                </label>
-                <input type="date" name="start" id="start" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="end" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    종료일
-                </label>
-                <input type="date" name="end" id="end" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-            </div>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                등록
-            </button>
-        </div>
-    </form>
+    </div>
 @endsection
 
 <script>

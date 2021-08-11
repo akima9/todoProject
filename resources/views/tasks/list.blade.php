@@ -1,15 +1,24 @@
 @extends('layouts.app')
 
-@section('container')
+@section('content')
     @foreach ($tasks as $task)
-        <div class="block border border-blue-500 rounded py-2 px-4 hover:bg-blue-100 my-5">
-            <a href="{{ route('task.show', ['id' => $task['id']]) }}">
-                <div>
-                    <span class="font-extrabold text-2xl">{{ $task['title'] }}</span>
-                    <span class="text-sm float-right">{{ $task['start'] }} ~ {{ $task['end'] }}</span>
+        <a href="{{ route('task.show', ['id' => $task['id']]) }}">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <span>{{ $task['title'] }}</span>
+                            <span class="float-right">{{ $task['start'] }} ~ {{ $task['end'] }}</span>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                {{ $task['contents'] }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p class="p-5">{{ $task['contents'] }}</p>
-            </a>
-        </div>
+            </div>
+        </a>
     @endforeach
 @endsection

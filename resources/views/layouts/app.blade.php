@@ -1,56 +1,104 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
-    <title>TO-DO App</title>
 </head>
 <body>
-    <div id="header" class="container mx-auto my-10">
-        @section('header')
-            <ul class="flex">
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('task.index') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">목록</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('task.calendar') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">달력</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('task.create') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">추가</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('taskGroup.index') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">그룹</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('taskGroup.create') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">그룹추가</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('user.create') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">회원가입</a>
-                </li>
-                <li class="flex-auto mr-2">
-                    <a href="{{ route('user.loginView') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">로그인</a>
-                </li>
-                <li class="flex-auto">
-                    <a href="{{ route('user.logout') }}" class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">로그아웃</a>
-                </li>
-            </ul>
-        @show
-    </div>
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <div id="container" class="container mx-auto">
-        @section('container')
-            This is the master container.
-        @show
-    </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- Authentication Links -->
+                        @guest
 
-    <div id="footer" class="container mx-auto">
-        @section('footer')
-            This is the master footer..
-        @show
+                        @else
+                            <li class="nav-item">
+                                <a href="{{ route('task.index') }}" class="nav-link">할일 목록</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('task.calendar') }}" class="nav-link">달력</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('task.create') }}" class="nav-link">할일 추가</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('taskGroup.index') }}" class="nav-link">할일 그룹</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('taskGroup.create') }}" class="nav-link">할일 그룹추가</a>
+                            </li>
+                        @endguest
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
 </body>
 </html>
