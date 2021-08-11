@@ -29,7 +29,7 @@ PUT/PATCH	    /photos/{photo}	        update	    photos.update
 
 Route::get('/', [TaskController::class, 'index'])->name('task.index');
 Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('task.create');
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('task.create')->middleware('verified');
 Route::post('/tasks', [TaskController::class, 'store'])->name('task.store');
 Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
 Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
@@ -60,6 +60,6 @@ Route::post('/users', [UserController::class, 'store'])->name('user.store');
 // Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
