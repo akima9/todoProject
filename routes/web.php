@@ -48,9 +48,9 @@ Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('ta
 
 Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
-Route::get('/users/loginView', [UserController::class, 'loginView'])->name('user.loginView');
-Route::post('/users/login', [UserController::class, 'login'])->name('user.login');
-Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
+// Route::get('/users/loginView', [UserController::class, 'loginView'])->name('user.loginView');
+// Route::post('/users/login', [UserController::class, 'login'])->name('user.login');
+// Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
 
 // Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');

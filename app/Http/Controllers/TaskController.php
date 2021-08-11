@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\TaskGroup;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -26,9 +27,12 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = $this->task->orderBy('start', 'asc')->get();
-
-        return view('tasks/list', ['tasks' => $tasks]);
+        if(!empty(Auth::id())){ // 로그인 후
+            $tasks = $this->task->orderBy('start', 'asc')->get();
+            return view('tasks/list', ['tasks' => $tasks]);
+        } else { // 로그인 전
+            return view('auth/login');
+        }
     }
 
     public function create()
