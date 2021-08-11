@@ -11,71 +11,83 @@
             </div>
         @endif
 
-        <form action="/tasks/{{ $task['id'] }}" method="POST" class="w-full my-10">
-            @csrf
-            @method('PUT')
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label for="taskGroup" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        그룹
-                    </label>
-                    <select name="taskGroup" id="taskGroup" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        @if (!empty($listTaskGroups))
-                            <option value="emptyGroup">일반</option>
-                            @foreach ($listTaskGroups as $listTaskGroup)
-                                <option
-                                    value="{{ $listTaskGroup['id'] }}"
-                                    @if (!empty($getTaskGroup))
-                                        @if ($listTaskGroup['id'] === $getTaskGroup['id'])
-                                            selected
-                                        @endif
-                                    @endif
-                                    >{{ $listTaskGroup['groupName'] }}</option>
-                            @endforeach
-                        @else
-                            <option value="emptyGroup">일반</option>
-                        @endif
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">할일 추가</div>
 
-                    </select>
+                    <div class="card-body">
+                        <form method="POST" action="/tasks/{{ $task['id'] }}">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="form-group row">
+                                <label for="taskGroup" class="col-md-4 col-form-label text-md-right">그룹</label>
+
+                                <div class="col-md-6">
+                                    <select name="taskGroup" id="taskGroup" class="form-control">
+                                        @if (!empty($listTaskGroups))
+                                            <option value="emptyGroup">일반</option>
+                                            @foreach ($listTaskGroups as $listTaskGroup)
+                                                <option
+                                                    value="{{ $listTaskGroup['id'] }}"
+                                                    @if (!empty($getTaskGroup))
+                                                        @if ($listTaskGroup['id'] === $getTaskGroup['id'])
+                                                            selected
+                                                        @endif
+                                                    @endif
+                                                    >{{ $listTaskGroup['groupName'] }}</option>
+                                            @endforeach
+                                        @else
+                                            <option value="emptyGroup">일반</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="title" class="col-md-4 col-form-label text-md-right">제목</label>
+
+                                <div class="col-md-6">
+                                    <input id="title" type="text" value="{{ $task['title'] }}" class="form-control" name="title" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="contents" class="col-md-4 col-form-label text-md-right">내용</label>
+
+                                <div class="col-md-6">
+                                    <textarea name="contents" id="contents" class="form-control" required>{{ $task['contents'] }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="start" class="col-md-4 col-form-label text-md-right">시작일</label>
+
+                                <div class="col-md-6">
+                                    <input id="start" type="date" value="{{ $task['start'] }}" class="form-control" name="start" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="end" class="col-md-4 col-form-label text-md-right">종료일</label>
+
+                                <div class="col-md-6">
+                                    <input id="end" type="date" value="{{ $task['end'] }}" class="form-control" name="end" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        완료
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label for="title" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        제목
-                    </label>
-                    <input type="text" name="title" id="title" value="{{ $task['title'] }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label for="contents" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        내용
-                    </label>
-                    <textarea name="contents" id="contents" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">{{ $task['contents'] }}</textarea>
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label for="start" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        시작일
-                    </label>
-                    <input type="date" name="start" id="start" value="{{ $task['start'] }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label for="end" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        종료일
-                    </label>
-                    <input type="date" name="end" id="end" value="{{ $task['end'] }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                    완료
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
