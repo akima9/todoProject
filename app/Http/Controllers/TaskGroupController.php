@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TaskGroup;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TaskGroupController extends Controller
 {
@@ -23,7 +24,7 @@ class TaskGroupController extends Controller
 
     public function index()
     {
-        $data = $this->taskGroup->all();
+        $data = $this->taskGroup->where('writer_id', Auth::id())->get();
         return view('taskGroups/list', ['taskGroups' => $data]);
     }
 
@@ -45,6 +46,7 @@ class TaskGroupController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
+            $this->taskGroup->writer_id = Auth::id();
             $this->taskGroup->groupName = $request->input('groupName');
             $this->taskGroup->bgColor = $request->input('bgColor');
             $this->taskGroup->fontColor = $request->input('fontColor');

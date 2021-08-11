@@ -49,7 +49,7 @@
             editable: true,
             eventSources: [
                 {
-                    url: '{{route('restTask.list')}}',
+                    url: '{{route('restTask.list', ['id' => Auth::id()])}}',
                     method: 'GET',
                     success: function(data) {
                         console.log(data);

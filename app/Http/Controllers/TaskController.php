@@ -27,8 +27,8 @@ class TaskController extends Controller
 
     public function index()
     {
-        if(!empty(Auth::id())){ // 로그인 후
-            $tasks = $this->task->orderBy('start', 'asc')->get();
+        if(Auth::check()){ // 로그인 후
+            $tasks = $this->task->where('writer_id', Auth::id())->orderBy('start', 'asc')->get();
             return view('tasks/list', ['tasks' => $tasks]);
         } else { // 로그인 전
             return view('auth/login');
@@ -37,7 +37,7 @@ class TaskController extends Controller
 
     public function create()
     {
-        $data = $this->taskGroup->all();
+        $data = $this->taskGroup->where('writer_id', Auth::id())->get();
         return view('tasks/create', ['taskGroups' => $data]);
     }
 
@@ -55,6 +55,7 @@ class TaskController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
+            $this->task->writer_id = Auth::id();
             $this->task->group = $request->input('taskGroup');
             $this->task->title = $request->input('title');
             $this->task->contents = $request->input('contents');
@@ -114,9 +115,7 @@ class TaskController extends Controller
 
     public function calendar()
     {
-        $tasks = $this->task->all();
-
-        return view('tasks/calendar', ['tasks' => $tasks]);
+        return view('tasks/calendar');
     }
 
 }

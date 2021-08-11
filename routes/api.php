@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tasks/list', [RestTaskController::class, 'list'])->name('restTask.list');
+Route::get('/tasks/list/{id}', [RestTaskController::class, 'list'])->name('restTask.list');
 Route::put('/tasks/{id}', [RestTaskController::class, 'update'])->name('restTask.update');
 
 Route::get('/users/userIdDupeChk/{id}', [RestUserController::class, 'userIdDupeChk'])->name('restUser.userIdDupeChk');
