@@ -84,9 +84,17 @@
                                                      document.getElementById('logout-form').submit();">
                                         로그아웃
                                     </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="userDelete()">
+                                        계정삭제
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
+                                    </form>
+
+                                    <form id="user-delete-form" action="{{ route('user.delete') }}" method="POST" class="d-none">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{Auth::id()}}">
                                     </form>
                                 </div>
                             </li>
@@ -101,4 +109,11 @@
         </main>
     </div>
 </body>
+<script>
+    function userDelete(){
+        if (confirm("계정을 삭제 하시겠습니까?")) {
+            document.querySelector('#user-delete-form').submit();
+        }
+    }
+</script>
 </html>

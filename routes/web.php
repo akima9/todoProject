@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
     Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
     Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
+
+    //users
+    Route::post('/users/delete', [UserController::class, 'delete'])->name('user.delete');
 });
 
 Auth::routes(['verify' => true]);

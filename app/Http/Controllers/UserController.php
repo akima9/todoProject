@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private $user;
-    private $messages;
 
     public function __construct()
     {
         $this->user = new User;
-        $this->messages = [
-            'userId.required' => '제목을 입력해주세요.',
-            'userId.max' => '제목은 10자 이하로 입력해주세요.',
-            'userPw.required' => '비밀번호를 입력해주세요.',
-        ];
+    }
+
+    public function delete(Request $request)
+    {
+        $this->user->where('id', $request->input('id'))->delete();
+        return redirect('/');
     }
 
     /* public function index()
