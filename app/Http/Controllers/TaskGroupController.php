@@ -28,9 +28,9 @@ class TaskGroupController extends Controller
         return view('taskGroups/list', ['taskGroups' => $data]);
     }
 
-    public function create()
+    public function create($option)
     {
-        return view('taskGroups/create');
+        return view('taskGroups/create', ['option' => $option]);
     }
 
     public function store(Request $request)
@@ -52,8 +52,12 @@ class TaskGroupController extends Controller
             $this->taskGroup->fontColor = $request->input('fontColor');
             $this->taskGroup->save();
 
-            // return redirect('/taskGroups');
-            return redirect('tasks/create');
+            if ($request->input('option') === 'N') { // 그룹 추가 메뉴에서 추가한 경우
+                return redirect('/taskGroups');
+            } else { // 할일 추가에서 그룹 추가한 경우
+                return redirect('tasks/create');
+            }
+
         }//end if
     }
 

@@ -105,6 +105,6 @@
     }
 
     function taskGroupAdd(){
-        self.location = "{{ route('taskGroup.create') }}";
+        self.location = "{{ route('taskGroup.create', ['option' => 'Y']) }}";
     }
 </script>

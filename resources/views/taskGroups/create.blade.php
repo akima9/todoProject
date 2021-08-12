@@ -18,6 +18,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('taskGroup.store') }}">
                             @csrf
+                            <input type="hidden" name="option" value="{{$option}}">
 
                             <div class="form-group row">
                                 <label for="groupName" class="col-md-4 col-form-label text-md-right">제목</label>

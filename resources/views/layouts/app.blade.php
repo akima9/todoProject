@@ -52,7 +52,7 @@
                                 <a href="{{ route('taskGroup.index') }}" class="nav-link">할일 그룹</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('taskGroup.create') }}" class="nav-link">할일 그룹추가</a>
+                                <a href="{{ route('taskGroup.create', ['option' => 'N']) }}" class="nav-link">할일 그룹추가</a>
                             </li>
                         @endguest
                     </ul>

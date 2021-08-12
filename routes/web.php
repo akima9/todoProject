@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function(){
 
     //taskGroups
     Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');
-    Route::get('/taskGroups/create', [TaskGroupController::class, 'create'])->name('taskGroup.create');
+    Route::get('/taskGroups/create/{option}', [TaskGroupController::class, 'create'])->name('taskGroup.create');
     Route::post('/taskGroups', [TaskGroupController::class, 'store'])->name('taskGroup.store');
     Route::get('/taskGroups/{id}', [TaskGroupController::class, 'show'])->name('taskGroup.show');
     Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
