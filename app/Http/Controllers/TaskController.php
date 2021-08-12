@@ -63,7 +63,7 @@ class TaskController extends Controller
             $this->task->end = $request->input('end');
             $this->task->save();
 
-            return redirect('/');
+            return redirect('tasks/calendar');
         }//end if
     }
 

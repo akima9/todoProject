@@ -23,7 +23,7 @@
                             <div class="form-group row">
                                 <label for="taskGroup" class="col-md-4 col-form-label text-md-right">그룹</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <select name="taskGroup" id="taskGroup" class="form-control">
                                         @if (count($taskGroups) > 0)
                                             <option value="emptyGroup">일반</option>
@@ -35,6 +35,12 @@
                                         @endif
 
                                     </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-primary" onclick="taskGroupAdd()" style="width:100%">
+                                        그룹 추가
+                                    </button>
                                 </div>
                             </div>
 
@@ -96,5 +102,9 @@
         }
 
         return true;
+    }
+
+    function taskGroupAdd(){
+        self.location = "{{ route('taskGroup.create') }}";
     }
 </script>

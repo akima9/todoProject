@@ -52,7 +52,8 @@ class TaskGroupController extends Controller
             $this->taskGroup->fontColor = $request->input('fontColor');
             $this->taskGroup->save();
 
-            return redirect('/taskGroups');
+            // return redirect('/taskGroups');
+            return redirect('tasks/create');
         }//end if
     }
 
