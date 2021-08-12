@@ -60,6 +60,15 @@
                                 <button type="button" class="btn btn-primary" onclick="taskDelete()">
                                     삭제
                                 </button>
+                                @if ($task['complete'] === 'N')
+                                    <button type="button" class="btn btn-primary" onclick="taskComplete()">
+                                        할일 완료
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-primary" onclick="taskCompleteRollBack()">
+                                        완료 해제
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -77,5 +86,13 @@
 
     function taskDelete(){
         self.location = "{{ route('task.delete', ['id' => $task['id']]) }}";
+    }
+
+    function taskComplete(){
+        self.location = "{{ route('task.complete', ['id' => $task['id']]) }}";
+    }
+
+    function taskCompleteRollBack(){
+        self.location = "{{ route('task.completeRollBack', ['id' => $task['id']]) }}";
     }
 </script>

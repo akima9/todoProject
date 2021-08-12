@@ -61,6 +61,7 @@ class TaskController extends Controller
             $this->task->contents = $request->input('contents');
             $this->task->start = $request->input('start');
             $this->task->end = $request->input('end');
+            $this->task->complete = 'N';
             $this->task->save();
 
             return redirect('tasks/calendar');
@@ -105,6 +106,28 @@ class TaskController extends Controller
 
             return redirect('tasks/'.$id);
         }//end if
+    }
+
+    public function complete($id)
+    {
+        $this->task->where('id', $id)
+                ->update([
+                        'complete' => 'Y'
+                    ]
+                );
+
+        return redirect('tasks/calendar');
+    }
+
+    public function completeRollBack($id)
+    {
+        $this->task->where('id', $id)
+                ->update([
+                        'complete' => 'N'
+                    ]
+                );
+
+        return redirect('tasks/calendar');
     }
 
     public function delete($id)

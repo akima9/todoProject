@@ -21,7 +21,7 @@ class RestTaskController extends Controller
         $tasks = DB::table('tasks')
             ->leftjoin('taskgroup', 'tasks.group', '=', 'taskgroup.id')
             ->where('tasks.writer_id', '=', $id)
-            ->select('tasks.id', 'tasks.title', 'tasks.start', 'tasks.end', 'taskgroup.bgColor as color', 'taskgroup.fontColor as textColor')
+            ->select('tasks.id', DB::raw('if(tasks.complete="Y", concat("[완료]", tasks.title), concat("[진행중]", tasks.title)) as title'), 'tasks.start', 'tasks.end', 'taskgroup.bgColor as color', 'taskgroup.fontColor as textColor', 'tasks.complete')
             ->get();
         return response()->json($tasks);
     }

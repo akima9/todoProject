@@ -21,6 +21,11 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
+                                    @if ($task['complete'] === 'Y')
+                                        <span>[완료]</span>
+                                    @else
+                                        <span>[진행중]</span>
+                                    @endif
                                     <span>{{ $task['title'] }}</span>
                                     <span class="float-right">{{ $task['start'] }} ~ {{ $task['end'] }}</span>
                                 </div>
