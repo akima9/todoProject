@@ -43,10 +43,10 @@
                                 <a href="{{ route('admin.tasks') }}" class="nav-link">할일관리</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('task.calendar') }}" class="nav-link">할일그룹관리</a>
+                                <a href="{{ route('admin.taskGroups') }}" class="nav-link">할일그룹관리</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('task.create') }}" class="nav-link">회원관리</a>
+                                <a href="{{ route('admin.users') }}" class="nav-link">회원관리</a>
                             </li>
                         @endguest
                     </ul>

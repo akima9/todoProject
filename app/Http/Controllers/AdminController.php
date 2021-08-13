@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\TaskGroup;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     private $task;
+    private $user;
 
     public function __construct()
     {
         $this->task = new Task;
+        $this->user = new User;
+        $this->taskGroup = new TaskGroup;
     }
     public function index()
     {
-        return view('admin/index');
+        return redirect('admin/users');
     }//end index
 
     public function taskList()
@@ -25,25 +30,25 @@ class AdminController extends Controller
                         ->join('users', 'users.id', '=', 'tasks.writer_id')
                         ->orderBy('tasks.id', 'desc')
                         ->paginate(15);
-        $taskCount = $tasks->count();
-        return view('admin/tasks/list', ['tasks' => $tasks, 'taskCount' => $taskCount]);
+        return view('admin/tasks/list', ['tasks' => $tasks]);
+    }//end taskList
 
-        /* DB::statement(DB::raw('set @rownum=0'));
-        $users = User::select([
-            DB::raw('@rownum  := @rownum  + 1 AS rownum'),
-            'id',
-            'name',
-            'email',
-            'created_at',
-            'updated_at']);
-        $datatables = Datatables::of($users);
+    public function userList()
+    {
+        $users = $this->user
+                        ->orderBy('id', 'desc')
+                        ->paginate(15);
+        return view('admin/users/list', ['users' => $users]);
+    }//end userList
 
-        if ($keyword = $request->get('search')['value']) {
-            $datatables->filterColumn('rownum', 'whereRaw', '@rownum  + 1 like ?', ["%{$keyword}%"]);
-        }
-
-        return $datatables->make(true); */
-    }
+    public function taskGroupList()
+    {
+        $taskGroups = $this->taskGroup
+                        ->join('users', 'users.id', '=', 'taskgroup.writer_id')
+                        ->orderBy('taskgroup.id', 'desc')
+                        ->paginate(15);
+        return view('admin/taskGroups/list', ['taskGroups' => $taskGroups]);
+    }//end taskGroupList
 
     /* private $task;
     private $taskGroup;
