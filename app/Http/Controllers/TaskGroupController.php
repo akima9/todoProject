@@ -26,12 +26,12 @@ class TaskGroupController extends Controller
     {
         $data = $this->taskGroup->where('writer_id', Auth::id())->get();
         return view('taskGroups/list', ['taskGroups' => $data]);
-    }
+    }//end index
 
     public function create($option)
     {
         return view('taskGroups/create', ['option' => $option]);
-    }
+    }//end create
 
     public function store(Request $request)
     {
@@ -56,70 +56,65 @@ class TaskGroupController extends Controller
                 return redirect('/taskGroups');
             } else { // 할일 추가에서 그룹 추가한 경우
                 return redirect('tasks/create');
-            }
-
+            }//end if
         }//end if
-    }
+    }//end store
 
     public function show($id)
     {
-        $data = $this->taskGroup->where('id', $id)->first();
+        $taskGroup = $this->taskGroup->where('id', $id)->first();
 
-        return view('taskGroups/show', ['taskGroup' => $data]);
-    }
+        if ($this->authorize('view', $taskGroup)) {
+            return view('taskGroups/show', ['taskGroup' => $taskGroup]);
+        }//end if
+    }//end show
 
     public function edit($id)
     {
-        $data = $this->taskGroup->where('id', $id)->first();
+        $taskGroup = $this->taskGroup->where('id', $id)->first();
 
-        return view('taskGroups/edit', ['taskGroup' => $data]);
-    }
+        if ($this->authorize('view', $taskGroup)) {
+            return view('taskGroups/edit', ['taskGroup' => $taskGroup]);
+        }//end if
+    }//end edit
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'groupName' => 'required|max:50',
-            'bgColor' => 'required',
-            'fontColor' => 'required',
-        ], $this->messages);
+        $taskGroup = $this->taskGroup->where('id', $id)->first();
 
-        if ($validator->fails()) {
-            return redirect('taskGroups/' . $id . '/edit')
-                    ->withErrors($validator)
-                    ->withInput();
-        } else {
+        if ($this->authorize('view', $taskGroup)) {
+            $validator = Validator::make($request->all(), [
+                'groupName' => 'required|max:50',
+                'bgColor' => 'required',
+                'fontColor' => 'required',
+            ], $this->messages);
 
-            $this->taskGroup->where('id', $id)
-                ->update([
-                    'groupName' => $request->input('groupName'),
-                    'bgColor' => $request->input('bgColor'),
-                    'fontColor' => $request->input('fontColor')]
-                );
+            if ($validator->fails()) {
+                return redirect('taskGroups/' . $id . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+            } else {
 
-            // return redirect('taskGroups/'.$id);
-            return redirect('/taskGroups');
+                $this->taskGroup->where('id', $id)
+                    ->update([
+                        'groupName' => $request->input('groupName'),
+                        'bgColor' => $request->input('bgColor'),
+                        'fontColor' => $request->input('fontColor')]
+                    );
+
+                // return redirect('taskGroups/'.$id);
+                return redirect('/taskGroups');
+            }//end if
         }//end if
-    }
+    }//end update
 
     public function delete($id)
     {
-        $this->taskGroup->where('id', $id)->delete();
-        return redirect('/taskGroups');
-    }
-/*
-    public function calendar()
-    {
-        $tasks = $this->task->all();
+        $taskGroup = $this->taskGroup->where('id', $id)->first();
 
-        return view('tasks/calendar', ['tasks' => $tasks]);
-    } */
-}
-/*
-Verb	        URI	                    Action	    Route Name
-GET	            /photos	                index	    photos.index
-GET	            /photos/create	        create	    photos.create
-POST	        /photos	                store	    photos.store
-GET	            /photos/{photo}	        show	    photos.show
-GET	            /photos/{photo}/edit	edit	    photos.edit
-PUT/PATCH	    /photos/{photo}	        update	    photos.update
-*/
+        if ($this->authorize('view', $taskGroup)) {
+            $this->taskGroup->where('id', $id)->delete();
+            return redirect('/taskGroups');
+        }//end if
+    }//end delete
+}//end class

@@ -32,14 +32,14 @@ class TaskController extends Controller
             return view('tasks/list', ['tasks' => $tasks]);
         } else { // 로그인 전
             return view('auth/login');
-        }
-    }
+        }//end if
+    }//end index
 
     public function create()
     {
         $data = $this->taskGroup->where('writer_id', Auth::id())->get();
         return view('tasks/create', ['taskGroups' => $data]);
-    }
+    }//end create
 
     public function store(Request $request)
     {
@@ -66,82 +66,102 @@ class TaskController extends Controller
 
             return redirect('tasks/calendar');
         }//end if
-    }
+    }//end store
 
     public function show($id)
     {
         $task = $this->task->where('id', $id)->first();
-        $taskGroup = $this->taskGroup->where('id', $task->group)->first();
 
-        return view('tasks/show', ['task' => $task, 'taskGroup' => $taskGroup]);
-    }
+        if ($this->authorize('view', $task)) {
+            $taskGroup = $this->taskGroup->where('id', $task->group)->first();
+            return view('tasks/show', ['task' => $task, 'taskGroup' => $taskGroup]);
+        }//end if
+    }//end show
 
     public function edit($id)
     {
         $task = $this->task->where('id', $id)->first();
-        $getTaskGroup = $this->taskGroup->where('id', $task->group)->first();
-        $listTaskGroup = $this->taskGroup->all();
 
-        return view('tasks/edit', ['task' => $task, 'getTaskGroup' => $getTaskGroup, 'listTaskGroups' => $listTaskGroup]);
-    }
+        if ($this->authorize('view', $task)) {
+            $getTaskGroup = $this->taskGroup->where('id', $task->group)->first();
+            $listTaskGroup = $this->taskGroup->all();
+            return view('tasks/edit', ['task' => $task, 'getTaskGroup' => $getTaskGroup, 'listTaskGroups' => $listTaskGroup]);
+        }//end if
+    }//end edit
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
-            'contents' => 'required',
-        ], $this->messages);
+        $task = $this->task->where('id', $id)->first();
 
-        if ($validator->fails()) {
-            return redirect('tasks/' . $id . '/edit')
-                    ->withErrors($validator)
-                    ->withInput();
-        } else {
-            $this->task->where('id', $id)
-                ->update([
-                    'group' => $request->input('taskGroup'),
-                    'title' => $request->input('title'),
-                    'contents' => $request->input('contents')]
-                );
+        if ($this->authorize('view', $task)) {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|max:50',
+                'contents' => 'required',
+            ], $this->messages);
 
-            return redirect('tasks/'.$id);
+            if ($validator->fails()) {
+                return redirect('tasks/' . $id . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+            } else {
+                $this->task->where('id', $id)
+                    ->update([
+                        'group' => $request->input('taskGroup'),
+                        'title' => $request->input('title'),
+                        'contents' => $request->input('contents')]
+                    );
+
+                return redirect('tasks/'.$id);
+            }//end if
         }//end if
-    }
+    }//end update
 
     public function complete($id)
     {
-        $this->task->where('id', $id)
+        $task = $this->task->where('id', $id)->first();
+
+        if ($this->authorize('view', $task)) {
+            $this->task->where('id', $id)
                 ->update([
                         'complete' => 'Y'
                     ]
                 );
 
-        return redirect('tasks/calendar');
-    }
+            return redirect('tasks/calendar');
+        }//end if
+    }//end complete
 
     public function completeRollBack($id)
     {
-        $this->task->where('id', $id)
-                ->update([
-                        'complete' => 'N'
-                    ]
-                );
+        $task = $this->task->where('id', $id)->first();
 
-        return redirect('tasks/calendar');
-    }
+        if ($this->authorize('view', $task)) {
+            $this->task->where('id', $id)
+            ->update([
+                    'complete' => 'N'
+                ]
+            );
+
+            return redirect('tasks/calendar');
+        }//end if
+    }//end completeRollBack
 
     public function delete($id)
     {
-        $this->task->where('id', $id)->delete();
-        return redirect('/');
-    }
+        $task = $this->task->where('id', $id)->first();
+
+        if ($this->authorize('view', $task)) {
+            $this->task->where('id', $id)->delete();
+            return redirect('/');
+        }//end if
+    }//end delete
 
     public function calendar()
     {
         return view('tasks/calendar');
-    }
+    }//end calendar
+}//end class
 
-}
 /*
 Verb	        URI	                    Action	    Route Name
 GET	            /photos	                index	    photos.index

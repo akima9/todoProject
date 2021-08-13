@@ -35,31 +35,29 @@ Route::middleware('auth')->group(function(){
     Route::get('/tasks/calendar', [TaskController::class, 'calendar'])->name('task.calendar');
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('task.create')->middleware('verified');
     Route::post('/tasks', [TaskController::class, 'store'])->name('task.store');
-    Route::middleware('can:show, task')->group(function(){
-        Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
-        Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
-        Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
-        Route::get('/tasks/{id}/complete', [TaskController::class, 'complete'])->name('task.complete');
-        Route::get('/tasks/{id}/completeRollBack', [TaskController::class, 'completeRollBack'])->name('task.completeRollBack');
-        Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');
-    });
+    Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('task.show');
+    Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
+    Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
+    Route::get('/tasks/{id}/complete', [TaskController::class, 'complete'])->name('task.complete');
+    Route::get('/tasks/{id}/completeRollBack', [TaskController::class, 'completeRollBack'])->name('task.completeRollBack');
+    Route::get('/tasks/{id}/delete', [TaskController::class, 'delete'])->name('task.delete');
 
     # taskGroups
     Route::get('/taskGroups', [TaskGroupController::class, 'index'])->name('taskGroup.index');
     Route::get('/taskGroups/create/{option}', [TaskGroupController::class, 'create'])->name('taskGroup.create');
     Route::post('/taskGroups', [TaskGroupController::class, 'store'])->name('taskGroup.store');
-    Route::middleware('can:show, taskGroup')->group(function(){
-        Route::get('/taskGroups/{id}', [TaskGroupController::class, 'show'])->name('taskGroup.show');
-        Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
-        Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
-        Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
-    });
+    Route::get('/taskGroups/{id}', [TaskGroupController::class, 'show'])->name('taskGroup.show');
+    Route::get('/taskGroups/{id}/edit', [TaskGroupController::class, 'edit'])->name('taskGroup.edit');
+    Route::get('/taskGroups/{id}/delete', [TaskGroupController::class, 'delete'])->name('taskGroup.delete');
+    Route::put('/taskGroups/{id}', [TaskGroupController::class, 'update'])->name('taskGroup.update');
 
     # users
     Route::post('/users/delete', [UserController::class, 'delete'])->name('user.delete');
 
     # admin
-    Route::get('/admin',[AdminController::class, 'index'])->middleware('can:isAdmin')->name('admin.index');
+    Route::middleware('can:isAdmin')->group(function(){
+        Route::get('/admin',[AdminController::class, 'index'])->name('admin.index');
+    });
 });
 
 Auth::routes(['verify' => true]);

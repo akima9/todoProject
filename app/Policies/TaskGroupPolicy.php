@@ -20,7 +20,7 @@ class TaskGroupPolicy
         //
     }
 
-    public function show(User $user, TaskGroup $taskGroup)
+    public function view(User $user, TaskGroup $taskGroup)
     {
         return $user->id === $taskGroup->writer_id;
     }

@@ -20,7 +20,7 @@ class TaskPolicy
         //
     }
 
-    public function show(User $user, Task $task)
+    public function view(User $user, Task $task)
     {
         return $user->id === $task->writer_id;
     }
