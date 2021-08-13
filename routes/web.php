@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGroupController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function(){
 
     //users
     Route::post('/users/delete', [UserController::class, 'delete'])->name('user.delete');
+
+    //admin
+    Route::get('/admin',[AdminController::class, 'index'])->middleware('can:isAdmin')->name('admin.index');
 });
 
 Auth::routes(['verify' => true]);

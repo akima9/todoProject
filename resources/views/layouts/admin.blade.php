@@ -40,19 +40,13 @@
 
                         @else
                             <li class="nav-item">
-                                <a href="{{ route('task.index') }}" class="nav-link">할일 목록</a>
+                                <a href="{{ route('task.index') }}" class="nav-link">할일관리</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('task.calendar') }}" class="nav-link">달력</a>
+                                <a href="{{ route('task.calendar') }}" class="nav-link">할일그룹관리</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('task.create') }}" class="nav-link">할일 추가</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('taskGroup.index') }}" class="nav-link">할일 그룹</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('taskGroup.create', ['option' => 'N']) }}" class="nav-link">할일 그룹추가</a>
+                                <a href="{{ route('task.create') }}" class="nav-link">회원관리</a>
                             </li>
                         @endguest
                     </ul>
@@ -123,7 +117,7 @@
     }
 
     function goToAdmin(){
-        self.location = "{{ route('admin.index') }}";
+        self.location = "";
     }
 </script>
 </html>
