@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -40,7 +40,7 @@
 
                         @else
                             <li class="nav-item">
-                                <a href="{{ route('task.index') }}" class="nav-link">할일관리</a>
+                                <a href="{{ route('admin.tasks') }}" class="nav-link">할일관리</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('task.calendar') }}" class="nav-link">할일그룹관리</a>

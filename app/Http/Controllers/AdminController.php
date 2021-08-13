@@ -3,20 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    private $task;
+
+    public function __construct()
+    {
+        $this->task = new Task;
+    }
     public function index()
     {
         return view('admin/index');
+    }//end index
 
-        /* if(Auth::check()){ // 로그인 후
-            $tasks = $this->task->where('writer_id', Auth::id())->orderBy('start', 'asc')->get();
-            return view('tasks/list', ['tasks' => $tasks]);
-        } else { // 로그인 전
-            return view('auth/login');
-        } */
+    public function taskList()
+    {
+        $tasks = $this->task
+                        ->join('users', 'users.id', '=', 'tasks.writer_id')
+                        ->orderBy('tasks.id', 'desc')
+                        ->paginate(15);
+        $taskCount = $tasks->count();
+        return view('admin/tasks/list', ['tasks' => $tasks, 'taskCount' => $taskCount]);
+
+        /* DB::statement(DB::raw('set @rownum=0'));
+        $users = User::select([
+            DB::raw('@rownum  := @rownum  + 1 AS rownum'),
+            'id',
+            'name',
+            'email',
+            'created_at',
+            'updated_at']);
+        $datatables = Datatables::of($users);
+
+        if ($keyword = $request->get('search')['value']) {
+            $datatables->filterColumn('rownum', 'whereRaw', '@rownum  + 1 like ?', ["%{$keyword}%"]);
+        }
+
+        return $datatables->make(true); */
     }
+
     /* private $task;
     private $taskGroup;
     private $messages;

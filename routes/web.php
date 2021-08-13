@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function(){
     # admin
     Route::middleware('can:isAdmin')->group(function(){
         Route::get('/admin',[AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin/tasks',[AdminController::class, 'taskList'])->name('admin.tasks');
     });
 });
 
