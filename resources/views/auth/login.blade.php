@@ -68,15 +68,23 @@
 
                     <hr>
 
-                    <form action="/" method="post">
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <a class="btn btn-primary btn-block" href="{{ route('login.github') }}">
-                                    Github로 로그인
-                                </a>
-                            </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <a class="btn btn-primary btn-block" href="{{ route('login.social', ['provider' => 'github']) }}">
+                                Github로 로그인
+                            </a>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <a class="btn btn-primary btn-block" href="{{ route('login.social', ['provider' => 'google']) }}">
+                                Google로 로그인
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

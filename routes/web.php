@@ -67,8 +67,5 @@ Route::middleware('auth')->group(function(){
 Auth::routes(['verify' => true]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-// Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
-
-Route::get('login/github', [LoginController::class, 'redirectToProvider'])->name('login.github');
-Route::get('login/github/callback', [LoginController::class, 'handleProviderCallback'])->name('login.github.callback');
+Route::get('login/{provider}', [LoginController::class, 'redirectToProvider'])->name('login.social');
+Route::get('login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])->name('login.social.callback');
