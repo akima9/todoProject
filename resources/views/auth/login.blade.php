@@ -65,6 +65,18 @@
                             </div>
                         </div>
                     </form>
+
+                    <hr>
+
+                    <form action="/" method="post">
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <a class="btn btn-primary btn-block" href="{{ route('login.github') }}">
+                                    Github로 로그인
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
