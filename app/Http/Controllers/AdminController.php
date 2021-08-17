@@ -33,12 +33,32 @@ class AdminController extends Controller
         return view('admin/tasks/list', ['tasks' => $tasks]);
     }//end taskList
 
-    public function userList()
+    public function userList(Request $request)
     {
-        $users = $this->user
+        $search = null;
+        if (count($request->input())) { // 검색값이 있을 경우
+            $search = $request->input();
+            $category = $request->input('search_category');
+            $keyword = $request->input('search_keyword');
+
+            if ($category === 'name') {
+                $users = $this->user
+                        ->where('name', 'like', '%'. $keyword . '%')
                         ->orderBy('id', 'desc')
                         ->paginate(15);
-        return view('admin/users/list', ['users' => $users]);
+            } else {
+                $users = $this->user
+                        ->where('email', 'like', '%' . $keyword . '%')
+                        ->orderBy('id', 'desc')
+                        ->paginate(15);
+            }//end if
+        } else { // 검색값이 없을 경우
+            $users = $this->user
+                        ->orderBy('id', 'desc')
+                        ->paginate(15);
+        }//end if
+
+        return view('admin/users/list', ['users' => $users, 'search' => $search]);
     }//end userList
 
     public function taskGroupList()

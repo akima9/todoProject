@@ -2,6 +2,32 @@
 
 @section('content')
     <div class="container">
+        <div class="row justify-content-center" style="margin-bottom:1rem">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">회원검색</div>
+
+                    <div class="card-body">
+                        <form action="{{ route('admin.users') }}" method="get">
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <select name="search_category" id="search_category" class="form-control">
+                                        <option value="name" {{ ($search && $search['search_category'] === 'name') ? 'selected' : '' }}>이름</option>
+                                        <option value="email" {{ ($search && $search['search_category'] === 'email') ? 'selected' : '' }}>이메일</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="search_keyword" class="form-control" value="{{ ($search) ? $search['search_keyword'] : '' }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary" style="width:100%;">검색</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- 할일이 없는 경우 --}}
         @if(count($users) === 0)
             <div class="row justify-content-center">
