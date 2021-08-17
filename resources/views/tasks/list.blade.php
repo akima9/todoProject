@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @guest
-        로그인전
-    @else
+    <div class="container">
         {{-- 할일이 없는 경우 --}}
         @if(count($tasks) === 0)
             <div class="row justify-content-center">
@@ -41,5 +39,5 @@
                 </a>
             @endforeach
         @endif
-    @endguest
+    </div>
 @endsection
