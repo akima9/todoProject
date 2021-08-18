@@ -80,7 +80,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- https로 전환 후 사용해야 할듯 --}}
+                    {{-- <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <a class="btn btn-primary btn-block" href="{{ route('login.social', ['provider' => 'google']) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
@@ -89,7 +90,7 @@
                                 Google 로그인
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
