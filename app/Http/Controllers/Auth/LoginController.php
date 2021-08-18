@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -69,7 +70,7 @@ class LoginController extends Controller
             $newUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'password'=> bcrypt('todoprojectrandompassword'),
+                'password'=> Hash::make(date("YmdHis")),
                 'level' => 'N',
             ]);
 
