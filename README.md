@@ -4,13 +4,13 @@
 
 **· 개발인원 :** 1명
 
-**· 개발환경 :** VSCode, MacOS Valet
+**· 개발환경 :** VSCode, AWS EC2(Ubuntu)
 
 **· 프로토콜 :** HTTP, TCP/IP
 
 **· 개발언어 :** PHP, Javascript
 
-**· 웹서버 :** Nginx
+**· 웹서버 :** Apache
 
 **· 데이터베이스 :** MySql
 
