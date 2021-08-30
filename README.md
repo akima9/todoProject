@@ -1,6 +1,5 @@
-# todo list project (Laravel8 연습)
+# todo list project
 
-**Laravel Framework 연습 프로젝트**
 간단한 스케쥴러 웹 애플리케이션입니다.
 
 **[ 개발환경 ]**
