@@ -92,7 +92,7 @@
                         </div>
                     </div> --}}
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <a class="btn btn-primary btn-block" href="{{ route('login.social', ['provider' => 'kakao']) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
@@ -101,16 +101,16 @@
                                 Kakao 로그인
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <a class="btn btn-primary btn-block" href="{{ route('login.social', ['provider' => 'naver']) }}">
                                 <strong>N</strong>
                                 Naver 로그인
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

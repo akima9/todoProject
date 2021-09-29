@@ -5,6 +5,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGroupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TaskGitController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/admin/taskGroups',[AdminController::class, 'taskGroupList'])->name('admin.taskGroups');
         Route::get('/admin/users',[AdminController::class, 'userList'])->name('admin.users');
     });
+
+    # taskGits
+    Route::get('/taskGits', [TaskGitController::class, 'index'])->name('taskGit.index');
 });
 
 Auth::routes(['verify' => true]);
